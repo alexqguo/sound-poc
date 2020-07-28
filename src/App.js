@@ -1,7 +1,17 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import WaveformPlaylist from 'waveform-playlist';
+import { ButtonGroup, Button } from 'react-bootstrap';
+
+const loadingStates = Object.freeze({
+  loading: 'loading',
+  loaded: 'loaded',
+  error: 'error',
+});
 
 function App() {
+  const [loadingState, setLoadingState] = useState(loadingStates.loading);
+  const [playlist, setPlaylist] = useState(null);
+
   useEffect(() => {
     const playlist = WaveformPlaylist({
       samplesPerPixel: 3000,
@@ -32,14 +42,36 @@ function App() {
           src: 'tracks/bari.wav',
           name: 'bari'
         },
+        {
+          src: 'tracks/tenor.wav',
+          name: 'tenor'
+        }
       ])
       .then(() => {
-        console.log('Loaded')
+        const ee = playlist.getEventEmitter();
+        setLoadingState(loadingStates.loaded);
+        setPlaylist(playlist);
+        ee.on('timeupdate', (time) => console.log(time));
       });
   }, []);
 
+  // record example: https://github.com/naomiaro/waveform-playlist/blob/master/ghpages/js/record.js
+
   return (
-    <div id="playlist"></div>
+    <main>
+      {
+        loadingState === loadingStates.loaded ? <section>
+          <ButtonGroup size="sm">
+            <Button onClick={() => playlist.play()}>Play</Button>
+            <Button onClick={() => playlist.pause()}>Pause</Button>
+          </ButtonGroup>
+        </section> : null
+      }
+
+      <section>
+        <div id="playlist"></div>
+      </section>
+    </main>
   );
 }
 
