@@ -1,0 +1,5 @@
+* processing indicator when downloading
+* choose which song to play along to, load that via configuration
+* pan individual tracks
+* download recorded tracks
+* should fork waveform-playlist

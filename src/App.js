@@ -16,6 +16,7 @@ function App() {
 
   useEffect(() => {
     (async function() {
+      console.log(WaveformPlaylist.prototype);
       const playlist = WaveformPlaylist({
         samplesPerPixel: 3000,
         waveHeight: 120,
