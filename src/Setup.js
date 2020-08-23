@@ -35,9 +35,9 @@ const Setup = () => {
       window.p = playlist;
   
       await playlist.load([
-        { src: 'tracks/alto.wav', name: 'alto' },
-        { src: 'tracks/bari.wav', name: 'bari' },
-        { src: 'tracks/tenor.wav', name: 'tenor' },
+        { src: 'tracks/alto.mp3', name: 'alto' },
+        { src: 'tracks/bari.mp3', name: 'bari' },
+        { src: 'tracks/tenor.mp3', name: 'tenor' },
       ]);
 
       update({ playlist });
